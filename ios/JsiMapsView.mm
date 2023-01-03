@@ -1,4 +1,5 @@
 #import "JsiMapsView.h"
+#import "react_native_jsi_maps-Swift.h"
 
 #import <react/renderer/components/RNJsiMapsViewSpec/ComponentDescriptors.h>
 #import <react/renderer/components/RNJsiMapsViewSpec/EventEmitters.h>
@@ -14,7 +15,7 @@ using namespace facebook::react;
 @end
 
 @implementation JsiMapsView {
-    UIView * _view;
+    BaseJsiMapsView * _view;
 }
 
 + (ComponentDescriptorProvider)componentDescriptorProvider
@@ -22,13 +23,20 @@ using namespace facebook::react;
     return concreteComponentDescriptorProvider<JsiMapsViewComponentDescriptor>();
 }
 
+- (void)emitEvent
+{
+    auto emitter = std::static_pointer_cast<JsiMapsViewEventEmitter const>(self->_eventEmitter);
+    emitter->onMapLoadEnd(JsiMapsViewEventEmitter::OnMapLoadEnd());
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
   if (self = [super initWithFrame:frame]) {
     static const auto defaultProps = std::make_shared<const JsiMapsViewProps>();
     _props = defaultProps;
-
-    _view = [[UIView alloc] init];
+    _view = [[BaseJsiMapsView alloc] init];
+      
+      _view.emitEvent = @selector(emitEvent);
 
     self.contentView = _view;
   }
@@ -45,6 +53,7 @@ using namespace facebook::react;
         NSString * colorToConvert = [[NSString alloc] initWithUTF8String: newViewProps.color.c_str()];
         [_view setBackgroundColor:[self hexStringToColor:colorToConvert]];
     }
+    //self->_eventEmitter.
 
     [super updateProps:props oldProps:oldProps];
 }

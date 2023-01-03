@@ -8,12 +8,7 @@
 @implementation JsiMapsViewManager
 
 RCT_EXPORT_MODULE(JsiMapsView)
-
-- (UIView *)view
-{
-  return [[UIView alloc] init];
-}
-
 RCT_EXPORT_VIEW_PROPERTY(color, NSString)
+RCT_EXPORT_VIEW_PROPERTY(onMapLoadEnd, RCTDirectEventBlock);
 
 @end

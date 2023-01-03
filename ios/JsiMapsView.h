@@ -3,6 +3,8 @@
 #import <React/RCTViewComponentView.h>
 #import <UIKit/UIKit.h>
 
+@class BaseJsiMapsView;
+
 #ifndef JsiMapsViewNativeComponent_h
 #define JsiMapsViewNativeComponent_h
 

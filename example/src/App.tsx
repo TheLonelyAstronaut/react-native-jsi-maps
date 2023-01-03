@@ -6,7 +6,7 @@ import { JsiMapsView } from 'react-native-jsi-maps';
 export default function App() {
   return (
     <View style={styles.container}>
-      <JsiMapsView color="#32a852" style={styles.box} />
+      <JsiMapsView color="#32a852" style={styles.box} onMapLoadEnd={() => alert('Works!')}/>
     </View>
   );
 }
@@ -18,8 +18,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+    flex: 1,
+    width: '100%',
   },
 });
